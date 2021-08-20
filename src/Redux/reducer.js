@@ -17,15 +17,15 @@ const agregarTareaReducer = createSlice({
         },
         //Actualizar tareas
         editarTareas: (state, action) => {
-            return state.map(tarea =>{
+            return state.map((tarea) =>{
                 if(tarea.id === action.payload.id){
                     return{
                         ...tarea,
-                        item: action.payload.title,
-                    }
+                        item: action.payload.item,
+                    };
                 }
                 return tarea;
-            })
+            });
         },
         //Tarea completada
         completarTareas: (state, action) => {

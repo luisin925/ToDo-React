@@ -1,73 +1,82 @@
 import React, { useRef } from 'react';
 import { Delete, AssignmentTurnedIn, Create, CheckCircle } from '@material-ui/icons';
-import { Button, Typography, ListItemText } from '@material-ui/core';
+import { Button, Typography, Input, Container } from '@material-ui/core';
+import { SignalCellular1BarRounded, SignalCellular2BarRounded, SignalCellular4BarRounded } from '@material-ui/icons';
 
-import { ThemeProvider } from '@material-ui/styles';
-import theme from './TemaConfig';
+import { Card, CardActionArea, CardActions, CardContent } from '@material-ui/core';
+
+
+
 
 const TodoItem = (props) => {
-    const {item, editarTarea, completarTarea,eliminarTarea} = props;
-    
+
+    const { item, editarTarea, completarTarea, eliminarTarea } = props;
     const ref = useRef(true);
-    
+
     const cambiarEstado = () => {
         ref.current.disabled = false;
         ref.current.focus();
     };
-    
-        const editar = (id, value, event) => {
-            if(event.which === 13){
-                editarTarea({id, item: value });
-                ref.current.disabled = true;
-            }
-        };
+
+    const editar = (id, value, event) => {
+        if (event.which === 13) {
+            editarTarea({ id, item: value });
+            ref.current.disabled = true;
+        }
+    };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Typography variant="body1" color="initial" paragraph>
-    
-            <ListItemText 
-                inputRef={ref} 
-                disabled={ref} 
-                defaultValue={ item.item }
-                onKeyPress={(event) => editar(item.id, ref.current.value, event)}
-            />    
+        <Container>
+            <Card>
+                <CardActionArea>
+                    <CardContent>
+                        <Typography>
+                            <div className="todoContent">
+                                <Input
+                                    color='secondary'
+                                    inputRef={ref}
+                                    disabled={ref}
+                                    defaultValue={item.title}
+                                    onKeyPress={(event) => editar(item.id, ref.current.value, event)}
+                                />
+                                <div className="todoPriority">
+                                    {item.prioridad === 'Alta' && <SignalCellular4BarRounded color='secondary' />}
+                                    {item.prioridad === 'Media' && <SignalCellular2BarRounded color='primary' />}
+                                    {item.prioridad === 'Baja' && <SignalCellular1BarRounded color='action' />}
+                                    {item.active && <span> <CheckCircle /> </span>}
+                                </div>
+                            </div>
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button
+                        color='primary'
+                        onClick={() => cambiarEstado()}
+                        startIcon={<Create />}
+                        size="small"
+                    > Editar
+                    </Button>
 
+                    <Button
+                        color='primary'
+                        onClick={() => completarTarea(item.id)}
+                        startIcon={<AssignmentTurnedIn />}
+                        size="small"
+                    >Tarea Completada
+                    </Button>
 
-            
-            {" "}
-            {item.completado && <span> <CheckCircle/> </span>}
-            </Typography>
-        </ThemeProvider>   
-            
+                    <Button
+                        color='primary'
+                        onClick={() => eliminarTarea(item.id)}
+                        startIcon={<Delete />}
+                        size="small"
+                    >Eliminar Tarea
+                    </Button>
+                </CardActions>
+            </Card>
+        </Container>
     );
 };
 
-
-
-/*
 export default TodoItem
-
-<Button 
-color='primary' 
-onClick={() => cambiarEstado()}
-startIcon = {<Create/>}
-> 
-Editar 
-</Button>
-
-<Button 
-color='primary' 
-onClick={() => completarTarea(item.id)}
-startIcon = {<AssignmentTurnedIn/>}
->
-Tarea Completada
-</Button>
-
-<Button 
-color='primary' 
-onClick={() => eliminarTarea(item.id)}
-startIcon ={<Delete/>}
->
-Eliminar Tarea
-</Button> */

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { agregarTareas } from "../Redux/reducer";
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import { Select, Input, Button, Container, FormControl, MenuItem } from '@material-ui/core';
-
+import {PostAdd, SignalCellular1BarRounded, SignalCellular2BarRounded, SignalCellular4BarRounded } from '@material-ui/icons';
+import { Select, Input, Button, FormControl, MenuItem} from '@material-ui/core';
 import {connect} from "react-redux";
+import '../CSS/estilos.css';
 
 const mapStateToProps = (state) =>{
     return{
@@ -46,7 +46,7 @@ const agregar = () => {
 };
 
     return (
-        <Container>
+        <div className="addTarea">
             <FormControl>
                 <Input
                     type="text" 
@@ -54,28 +54,35 @@ const agregar = () => {
                     value={tarea}
                     placeholder = "Describe tu tarea"
                     />
-                <br/>
+                    <br/>
                 <Select
                     displayEmpty
                     value={value}
-                    onChange={(event) => actualizarEstadoSelect(event)} 
+                    onChange={(event) => actualizarEstadoSelect(event)}
+                    variant='outlined' 
+                    color='primary'
                 >
                     <MenuItem disabled value=''><em>Prioridad de tu tarea</em></MenuItem>
-                    <MenuItem value={'Alta'}>Alta</MenuItem>
-                    <MenuItem value={'Media'}>Media</MenuItem>
-                    <MenuItem value={'Baja'}>Baja</MenuItem>
+                    <MenuItem value={'Alta'} >
+                        <SignalCellular4BarRounded color='secondary'/> Prioridad Alta
+                    </MenuItem>
+                    <MenuItem value={'Media'} >
+                        <SignalCellular2BarRounded color='primary'/> Prioridad Media
+                    </MenuItem>
+                    <MenuItem value={'Baja'} >
+                        <SignalCellular1BarRounded color='action'/> Prioridad Baja
+                    </MenuItem>
                 </Select>
                 <br/>
                 <Button 
-                    color='primary' 
+                    variant='outlined' 
                     onClick={() => agregar()}
-                    startIcon={<PostAddIcon/>}
+                    startIcon={<PostAdd/>}
                 >
                     Añadir Tarea
                 </Button>     
-                <br/>
             </FormControl>
-        </Container>
+        </div>
     );
 };
 

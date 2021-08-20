@@ -1,0 +1,26 @@
+.addTarea{
+    background: transparent;
+    margin: 6rem;
+    padding: 1rem;
+    border: 3px solid;
+    border-radius:100px 20px; 
+    /* IMPORTANTE */
+    text-align: center;
+}
+
+.todoCard{
+    padding: 5px;
+    margin: 10px;
+    /* IMPORTANTE */
+    display: inline-block;
+}
+
+.todoContent{
+    text-align: center;
+}
+
+.todoPriority{
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}

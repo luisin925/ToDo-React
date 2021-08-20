@@ -1,61 +1,47 @@
 import React from 'react';
-import {AppBar, Toolbar, Typography, makeStyles} from '@material-ui/core';
+import { IconButton, AppBar, Toolbar, Typography} from '@material-ui/core';
+import {Menu, PersonOutline} from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 
 //Estilos de NavBar
-const useStyles = makeStyles(theme => ({
-    offset: theme.mixins.toolbar,
+const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-    toolbar: {
-        minHeight: 128,
-        alignItems: 'flex-start',
-        paddingTop: theme.spacing(1),
-        backgroundImage: `url(https://www.muycomputer.com/wp-content/uploads/2021/06/Monterey-1.jpg)`,
-    },
     title:{
-        flexGrow: 1,
-        alignSelf: 'flex-end',
-        fontSize: '70px',
-        fontStyle: 'Oblique',
+        position: 'relative',
+        width: '50%',
     },
-    subtitle:{
-        flexGrow: 1,
-        alignSelf: 'flex-end',
-        fontSize: '25px',
-        fontStyle: 'Oblique',
-    }
-}));
-
-function getFecha() {
+    login:{
+        position: 'relative',
+        width: '100%',
+        justify: 'rigth',
+    },
+    avatar:{
+        position: 'relative',
+    },
     
-    //Variables y metodos para obtener fecha actual
-    const tiempoTranscurrido = Date.now();
-    const hoy = new Date(tiempoTranscurrido);
-    hoy.toDateString(); 
-    return hoy.toString();     
-}
-        
+}))
 
 //Componente NavBar
-const Navbar = () => {
+export default function Navbar ()  {
     const classes = useStyles();
-    const hoy = getFecha();
     return (
         <div className={classes.root}>
-            <AppBar position='static'>
-                <Toolbar className={classes.toolbar}>
-                    <Typography className={classes.title}>
-                        MI DÍA
-                        <Typography className={classes.subtitle}>
-                            {hoy}
-                        </Typography>
+            <AppBar style={{backgroundColor:'black'}}>
+                <Toolbar>
+                    <IconButton edge='start' color='inherit'>
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant='h6' className={classes.title}>
+                        <p className={classes.todo}>ToDo</p>
                     </Typography>
+                    <IconButton edge='start' color='inherit' className={classes.avatar}>
+                        <PersonOutline/>
+                    </IconButton>
                 </Toolbar>
             </AppBar>
-                <div className={classes.offset}></div>
-        </div>
+
+            </div>    
     )
 }
-
-export default Navbar
